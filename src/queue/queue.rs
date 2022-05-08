@@ -1,6 +1,6 @@
 use plotlib::{repr::Plot, view::ContinuousView, page::Page, style::LineStyle};
 
-use super::{server::Server, resource::Resource, generator::Generator, tickable::Tickable};
+use super::{server::Server, client::Client, generator::Generator, tickable::Tickable};
 
 
 pub enum Policy {
@@ -34,7 +34,7 @@ impl QueueStatistics {
 }
 
 pub struct Queue<'a, R, G, S> where
-R: Resource,
+R: Client,
 G: Generator<R>,
 S: Server<R> {
 
@@ -48,7 +48,7 @@ S: Server<R> {
 }
 
 impl<'a, R, G, S> Queue<'a, R, G, S> where
-R: Resource,
+R: Client,
 G: Generator<R>,
 S: Server<R> {
 
@@ -67,7 +67,7 @@ S: Server<R> {
 }
 
 impl<'a, R, G, S> Tickable for Queue<'a, R, G, S> where
-R: Resource,
+R: Client,
 G: Generator<R>,
 S: Server<R> {
     fn get_tick(&self) -> u64 {
@@ -127,7 +127,7 @@ S: Server<R> {
 }
 
 impl<'a, R, G, S> Queue<'a, R, G, S> where
-R: Resource,
+R: Client,
 G: Generator<R>,
 S: Server<R> {
 

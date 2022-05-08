@@ -2,10 +2,10 @@ use std::marker::PhantomData;
 
 use plotlib::repr::Plot;
 
-use super::{generator::{Generator, GeneratorStatistics}, resource::Resource, tickable::Tickable, rate};
+use super::{generator::{Generator, GeneratorStatistics}, client::Client, tickable::Tickable, rate};
 
 pub struct SimpleGenerator<R> where
-R: Resource {
+R: Client {
 
     statistics: Vec<GeneratorStatistics>,
     distribution: rate::Rate,
@@ -15,7 +15,7 @@ R: Resource {
 }
 
 impl<R> Generator<R> for SimpleGenerator<R> where
-R: Resource {
+R: Client {
     fn new(service_rate: rate::Rate) -> Self {
         Self {statistics: Vec::new(), distribution: service_rate, last_t: 0, t: 0, _p: PhantomData::default() }
     }
@@ -45,7 +45,7 @@ R: Resource {
 }
 
 impl<R> Tickable for SimpleGenerator<R> where
-R: Resource {
+R: Client {
 
     /// return current tick valuable
     fn get_tick(&self) -> u64 {

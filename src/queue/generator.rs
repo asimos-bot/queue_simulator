@@ -1,6 +1,6 @@
 use plotlib::{repr::Plot, style::LineStyle};
 
-use super::{tickable, resource::Resource, rate};
+use super::{tickable, client::Client, rate};
 
 #[derive(Clone, Copy)]
 pub struct GeneratorStatistics {
@@ -20,7 +20,7 @@ impl GeneratorStatistics {
     }
 }
 
-pub trait Generator<R: Resource> : tickable::Tickable {
+pub trait Generator<R: Client> : tickable::Tickable {
 
     fn new(service_rate: rate::Rate) -> Self;
     fn get_plots(&self) -> Vec<Plot>;

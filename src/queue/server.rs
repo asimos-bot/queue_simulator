@@ -1,6 +1,6 @@
 use plotlib::{repr::Plot, style::LineStyle};
 
-use super::{resource::Resource, tickable, rate};
+use super::{client::Client, tickable, rate};
 
 #[derive(Clone, Copy)]
 pub struct ServerStatistics {
@@ -28,7 +28,7 @@ impl ServerStatistics {
     }
 }
 
-pub trait Server<R: Resource> : tickable::Tickable {
+pub trait Server<R: Client> : tickable::Tickable {
 
     fn new(service_rate: rate::Rate) -> Self;
     fn get_plots(&self) -> Vec<Plot>;

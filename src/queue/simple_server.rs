@@ -1,7 +1,7 @@
-use super::{server::{Server, ServerStatistics}, resource::Resource, tickable::Tickable, rate};
+use super::{server::{Server, ServerStatistics}, client::Client, tickable::Tickable, rate};
 
 pub struct SimpleServer<R> where
-R: Resource {
+R: Client {
     statistics: Vec<ServerStatistics>,
     distribution: rate::Rate,
     t: u64,
@@ -10,7 +10,7 @@ R: Resource {
 }
 
 impl<R> Server<R> for SimpleServer<R> where
-R: Resource {
+R: Client {
     fn new(service_rate: rate::Rate) -> Self {
         Self { statistics: Vec::new(), distribution: service_rate, last_t: 0, t: 0, current_resource: None }
     }
@@ -71,7 +71,7 @@ R: Resource {
 }
 
 impl<R> Tickable for SimpleServer<R> where
-R: Resource {
+R: Client {
 
     /// return current tick valuable
     fn get_tick(&self) -> u64 {
